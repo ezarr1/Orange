@@ -1,9 +1,7 @@
 wb <- createWorkbook()
 addWorksheet(wb, sheetName = "Data Loans")
 addWorksheet(wb, sheetName = "Data Borrowers")
-addWorksheet(wb, sheetName = "Data Co-owners")
-addWorksheet(wb, sheetName = "Data Guarantee")
-addWorksheet(wb, sheetName = "Data Guarantors")
+
 
 showGridLines(wb, sheet = 1, showGridLines = FALSE)
 showGridLines(wb, sheet = 2, showGridLines = FALSE)
@@ -73,4 +71,31 @@ writeDataTable(wb, 1, x = loan_size_by_vintage , startRow = 37,
 addStyle(wb, sheet = "Data Loans", style = thousands_rows, rows = c(38:43), cols = 2 ,stack = TRUE,gridExpand = TRUE)
 addStyle(wb, sheet = "Data Loans", style = percentage_rows, rows = c(38:43), cols = 3 ,stack = TRUE,gridExpand = TRUE)
 
+writeData(wb, sheet = "Data Borrowers", x = "Totals", startCol = 1, startRow = 5)
+writeDataTable(wb, 2, x = Totals_Borrowers , startRow = 6,
+               startCol = 1,  withFilter = FALSE, tableStyle =  "TableStyleMedium2")
+
+addStyle(wb, sheet = "Data Borrowers", style = Milion_rows, rows = 7, cols = 2 ,stack = TRUE,gridExpand = TRUE)
+addStyle(wb, sheet = "Data Borrowers", style = thousands_rows, rows = 7, cols = 3 ,stack = TRUE,gridExpand = TRUE)
+
+writeData(wb, sheet = "Data Borrowers", x = "Geographical Destribuition", startCol = 1, startRow = 9)
+writeDataTable(wb, 2, x = Borrowers_area_table , startRow = 10,
+               startCol = 1,  withFilter = FALSE, tableStyle =  "TableStyleMedium2")
+
+addStyle(wb, sheet = "Data Borrowers", style = percentage_rows, rows = c(11:15), cols = 3 ,stack = TRUE,gridExpand = TRUE)
+addStyle(wb, sheet = "Data Borrowers", style = percentage_rows, rows = c(11:15), cols = 2 ,stack = TRUE,gridExpand = TRUE)
+
+writeData(wb, sheet = "Data Borrowers", x = "GBV by borrower province", startCol = 1, startRow = 19)
+writeDataTable(wb, 2, x = Top_5_province_by_gbv , startRow = 20,
+               startCol = 1,  withFilter = FALSE, tableStyle =  "TableStyleMedium2")
+
+addStyle(wb, sheet = "Data Borrowers", style = Milion_rows, rows = c(21:25), cols = 2 ,stack = TRUE,gridExpand = TRUE)
+addStyle(wb, sheet = "Data Borrowers", style = thousands_rows, rows = c(21:25), cols = 4 ,stack = TRUE,gridExpand = TRUE)
+
+insertImage(wb,sheet = "Data Borrowers","File/province_plot.png",startCol = 10, startRow = 9, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Borrowers","File/Pie_Chart.png",startCol = 16, startRow = 9, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/Product_Type.png",startCol = 9, startRow = 9, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/Loan_Size.png",startCol = 9, startRow = 20, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/Loan_Size_Vintage.png",startCol = 9, startRow = 41, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/GBV_Vintage.png",startCol = 9, startRow = 31, width = 4.5, height = 4.5, dpi = 300)
 saveWorkbook(wb, file = "File/Teaser.xlsx", overwrite = TRUE)
