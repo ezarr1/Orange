@@ -69,8 +69,8 @@ GeoMetadata_line <- grep("^GeoMetadata", paths_content)
 GeoMetadata_value <- sub("^GeoMetadata=\\s*", "", paths_content[GeoMetadata_line])
 GeoData <- read_excel(GeoMetadata_value, sheet = "Geo")
 
-Entity <- create_region_city_prov(Entity,Entity$city,Entity$province)
-Entity <- create_area_city_prov(Entity,Entity$city,Entity$province)
+Entity <- create_region_city(Entity,Entity$city)
+Entity <- create_area_city(Entity,Entity$city)
 
 
 

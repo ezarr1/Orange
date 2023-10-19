@@ -111,12 +111,12 @@ add_age_range_column <- function(data) {
   return(result)
 }
 
-create_region_city_prov <- function(table, key1, key2) {
+create_region_city <- function(table, key1) {
   for (j in 1:length(key1)) {                 
-    if (is.na(key1[j]) || is.na(key2[j])) {
+    if (is.na(key1[j])) {
       table$region[j] <- NA  
     } else {
-      matching_row <- subset(GeoData, city == toupper(key1[j]) & label.prov == toupper(key2[j]))
+      matching_row <- subset(GeoData, city == toupper(key1[j]))
       if (nrow(matching_row) > 0) {
         table$region[j] <- matching_row$region
       } else {
@@ -127,12 +127,12 @@ create_region_city_prov <- function(table, key1, key2) {
   return(table)
 }
 
-create_area_city_prov <- function(table, key1, key2) {
+create_area_city <- function(table, key1) {
   for (j in 1:length(key1)) {                 
-    if (is.na(key1[j]) || is.na(key2[j])) {
+    if (is.na(key1[j])) {
       table$area[j] <- NA  
     } else {
-      matching_row <- subset(GeoData, city == toupper(key1[j]) & label.prov == toupper(key2[j]))
+      matching_row <- subset(GeoData, city == toupper(key1[j]))
       if (nrow(matching_row) > 0) {
         table$area[j] <- matching_row$area
       } else {
