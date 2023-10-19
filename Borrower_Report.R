@@ -9,14 +9,8 @@ N_Borrowers <- as.data.frame(n_distinct(Merged_Counterparty_Loans$id.bor))
 Sum.GBV <- as.data.frame(sum(Merged_Counterparty_Loans$gbv.original))
 
 
-
-names(N_Borrowers)  <- "N.Borrowers"
-names(Sum.GBV) <- "Sum.GBV"
-
-
-
 Totals_Borrowers <- cbind(N_Borrowers,Sum.GBV,Average_Borrower_Size)
-
+names(Totals_Borrowers) <- c("N.Borrowers","Sum.GBV","Average.GBV")
 
 
 # GBV % by borrores region and % borrower by region:
@@ -36,6 +30,8 @@ Borrowers_area_table <- Borrowers_area %>% mutate(area = ifelse(area == "ISLANDS
                                           group_by(area)  %>%
                                           summarise(perc_borrowers = n_distinct(id.counterparty)/total_borrowers,
                                           perc_gbv = sum(gbv.original)/total_gbv)
+Borrowers_area_table[is.na(Borrowers_area_table)] <- "N/a"
+names(Borrowers_area_table) <- c("Area"," % Borrowers"," % GBV")
 
 
 Borrowers_province_table <- Borrowers_area %>% group_by(province) %>% 
@@ -44,3 +40,7 @@ Borrowers_province_table <- Borrowers_area %>% group_by(province) %>%
 # the top 5 are Roma (rm), Teramo(te), Pescara(pe) ,Milano (mi), Genova (ge)
 sum(Borrowers_province_table$sum_gbv)
 Top_5_province_by_gbv <- Borrowers_province_table[1:5, ]
+names(Top_5_province_by_gbv) <- c("Province","Sum.GBV", "N.Borrowers","Average.GBV")
+
+
+

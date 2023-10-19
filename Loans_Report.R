@@ -13,7 +13,7 @@ Totals_Loans <- data.frame(`N Loans`=N_Loans,`Sum GBV`=GBV_sum,`Average Loan Siz
 
 gbv_sum_type <- Loans %>% group_by(type) %>% 
   summarize(sum_gbv = sum(gbv.original),perc = sum(gbv.original)/GBV_sum )
-
+names(gbv_sum_type)<- c("Type","Sum.GBV"," % GBV")
 
 
 Range_gbv <- c(0,5000,10000,25000,50000,Inf)
@@ -23,7 +23,7 @@ Loans$range.gbv <- cut(Loans$gbv.original, breaks = Range_gbv, labels = Range_gb
 
 gbv_by_loan_size <- Loans %>% group_by(range.gbv) %>% 
   summarize(sum_gbv = sum(gbv.original),perc = sum(gbv.original)/GBV_sum )
-
+names(gbv_by_loan_size)<- c("Range.GBV","Sum.GBV"," % GBV")
 
 #pag 29
 oggi <- as.Date('2021-11-01')   # Put this date to have similar numbers
@@ -37,11 +37,11 @@ Loans$range.vintage <- cut(Loans$vintage, breaks = Range_vintage, labels = Range
 
 gbv_by_vintage <- Loans %>% group_by(range.vintage) %>% 
   summarize(sum_gbv = sum(gbv.original),perc = sum(gbv.original)/GBV_sum )
-
+names(gbv_by_vintage)<- c("Range.Vintage","Sum.GBV"," % GBV")
 
 loan_size_by_vintage <- Loans %>% group_by(range.vintage) %>% 
   summarize(average_size = sum(gbv.original)/n_distinct(id.loan),perc = n_distinct(id.loan)/N_Loans )
 # average size (up) and n of loans over total number of loans in %
-
+names(loan_size_by_vintage)<- c("Range.Vintage","Average.Loan.Size"," % Loan")
 
 
