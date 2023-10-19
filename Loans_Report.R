@@ -26,7 +26,7 @@ gbv_by_loan_size <- Loans %>% group_by(range.gbv) %>%
 names(gbv_by_loan_size)<- c("Range.GBV","Sum.GBV"," % GBV")
 
 #pag 29
-oggi <- as.Date('2021-11-01')   # Put this date to have similar numbers
+oggi <- as.Date('2021-11-30')   # Put this date to have similar numbers
 Loans <- Loans %>% mutate(vintage = round(as.numeric(oggi - date.status)/365,0))
 Loans$vintage[is.na(Loans$vintage)] <- 0
 
