@@ -1,3 +1,4 @@
+
 #sum(is.na(Borrower_Raw$fiscal.code) & is.na(Borrower_Raw$vat.number)) 1713
 #sum(!is.na(Borrower_Raw$fiscal.code) & is.na(Borrower_Raw$vat.number)) 2621
 #sum(is.na(Borrower_Raw$fiscal.code) & !is.na(Borrower_Raw$vat.number)) 9237
@@ -18,17 +19,17 @@ Guarantor_Raw$role <- 'guarantor'
 Co_Owner_Raw <- Co_Owner_Raw %>% group_by(ndg) %>% summarize(Ndg = ndg,Cf.piva = paste(cf.piva,collapse = ","),Role = role)
 Co_Owner_Raw <- Co_Owner_Raw %>% distinct() %>% select(-Ndg) %>% rename(role = Role,cf.piva = Cf.piva)  
 Guarantor_Raw <- Guarantor_Raw %>% mutate(registry.type = NA,cap.borrower.town = NA,borrower.town = NA,borrower.province = NA,
-                                            borrower.address = NA,borrower.nation=NA,birth.date=NA,gbv = NA,sae.code = NA,
-                                          debtor.status = NA, deceased.debtor = NA) 
-Co_Owner_Raw<- Co_Owner_Raw %>% mutate(registry.type = NA,cap.borrower.town = NA,borrower.town = NA,borrower.province = NA,
                                           borrower.address = NA,borrower.nation=NA,birth.date=NA,gbv = NA,sae.code = NA,
                                           debtor.status = NA, deceased.debtor = NA) 
+Co_Owner_Raw<- Co_Owner_Raw %>% mutate(registry.type = NA,cap.borrower.town = NA,borrower.town = NA,borrower.province = NA,
+                                       borrower.address = NA,borrower.nation=NA,birth.date=NA,gbv = NA,sae.code = NA,
+                                       debtor.status = NA, deceased.debtor = NA) 
 
 Counterparties <- rbind(Borrower_Raw,Co_Owner_Raw)
 Counterparties <- Counterparties %>%
-                  group_by(ndg) %>%
-                  mutate(cf.piva = ifelse(n() >= 2, paste(cf.piva, collapse = ","), first(cf.piva))) %>%
-                  filter(role == 'borrower') %>% ungroup()
+  group_by(ndg) %>%
+  mutate(cf.piva = ifelse(n() >= 2, paste(cf.piva, collapse = ","), first(cf.piva))) %>%
+  filter(role == 'borrower') %>% ungroup()
 Counterparties <- rbind(Counterparties,Guarantor_Raw)
 
 Counterparties_Raw <- Counterparties %>% mutate(id.counterparty = paste0("c",row_number()))
@@ -56,13 +57,13 @@ Entities_Raw <- Entities_Raw %>% mutate(name=NA,flag.imputed=NA,dummy.info = NA,
 Entity <- Entities_Raw %>% select(id.entity,name,cf.piva,registry.type,dummy.info,
                                   solvency.pf,income.pf,type.pg,status.pg,date.cessation,
                                   borrower.town,borrower.province,flag.imputed) %>%
-            rename(type.subject = registry.type,city = borrower.town,province = borrower.province)
+  rename(type.subject = registry.type,city = borrower.town,province = borrower.province)
 
 Entity <- Entity %>% mutate(age = round(as.numeric((oggi-as.Date(Entities_Raw$birth.date)) /365)))
 Entity <- add_age_range_column(Entity)
 
 Entity <- Entity %>% mutate(sex = ifelse(!is.na(cf.piva) & nchar(cf.piva) >= 12,
-                        ifelse(as.numeric(substr(cf.piva, 10, 11)) > 40, "F", "M"),NA ))
+                                         ifelse(as.numeric(substr(cf.piva, 10, 11)) > 40, "F", "M"),NA ))
 
 paths_content <- readLines("File/file_paths.txt")
 GeoMetadata_line <- grep("^GeoMetadata", paths_content)
