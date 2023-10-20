@@ -30,7 +30,7 @@ Borrowers_area_table <- Borrowers_area %>% mutate(area = ifelse(area == "ISLANDS
                                           group_by(area)  %>%
                                           summarise(perc_borrowers = n_distinct(id.counterparty)/total_borrowers,
                                           perc_gbv = sum(gbv.original)/total_gbv)
-Borrowers_area_table[is.na(Borrowers_area_table)] <- "N/a"
+Borrowers_area_table[is.na(Borrowers_area_table)] <- "N/A"
 names(Borrowers_area_table) <- c("Area"," % Borrowers"," % GBV")
 
 
@@ -41,5 +41,5 @@ sum(Borrowers_province_table$sum_gbv)
 Top_5_province_by_gbv <- Borrowers_province_table[1:5, ]
 names(Top_5_province_by_gbv) <- c("Province","Sum.GBV", "N.Borrowers","Average.GBV")
 
-
+Top_5_province_by_gbv$Province <- c("Roma","Teramo","Pescara","Milano","Genova")
 

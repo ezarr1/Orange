@@ -11,7 +11,7 @@ province_plot <- Top_5_province_by_gbv %>% mutate(`Province` = fct_reorder(`Prov
 
 province_plot
 
-ggsave("File/province_plot.png",plot = province_plot)
+ggsave("File/province_plot.png",plot = province_plot,width = 8,height = 6,units = "in")
 
 
 
@@ -49,7 +49,7 @@ Product_Type_Plot <- gbv_sum_type %>% mutate(`Type` = fct_reorder(`Type`,desc(` 
 
 Product_Type_Plot
 
-ggsave("File/Product_Type.png",plot = Product_Type_Plot)
+ggsave("File/Product_Type.png",plot = Product_Type_Plot,width = 8,height = 6,units = "in")
 
 #gbv_by_loan_size$` % GBV` <- gbv_by_loan_size$` % GBV`/100
 
@@ -65,7 +65,7 @@ loan_size_plot <- gbv_by_loan_size %>%
 
 loan_size_plot
 
-ggsave("File/Loan_Size.png",plot = loan_size_plot)
+ggsave("File/Loan_Size.png",plot = loan_size_plot,width = 8,height = 6,units = "in")
 
 #loan_size_by_vintage$` % Loan` <- loan_size_by_vintage$` % Loan`*100
 
@@ -81,7 +81,7 @@ loan_size_vintage_plot <- loan_size_by_vintage %>%
 
 loan_size_vintage_plot
 
-ggsave("File/Loan_Size_Vintage.png",plot = loan_size_vintage_plot)
+ggsave("File/Loan_Size_Vintage.png",plot = loan_size_vintage_plot,width = 8,height = 6,units = "in")
 
 #gbv_by_vintage$` % GBV` <- gbv_by_vintage$` % GBV`*100
 
@@ -97,8 +97,69 @@ gbv_by_vintage_plot <- gbv_by_vintage %>%
 
 gbv_by_vintage_plot
 
-ggsave("File/GBV_Vintage.png",plot = gbv_by_vintage_plot)
+
+ggsave("File/GBV_Vintage.png",plot = gbv_by_vintage_plot,width = 8,height = 6,units = "in")
+
+
+##### Pie chart for Geographical Distribution of Borrwers BY GBV
+myPalette <- c( "#5798FF", "#33FFFF")
 
 
 
+# Your pie chart code
+pie_chart_gbv <- ggplot(data = gbv_perc_by_Guarantee, aes(x = 1, y = Perc, fill = flag.guarantee)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(values = myPalette) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(fill = "Guarantee") +
+  ggtitle("GBV Distribution by Guarantee Presence")
+
+
+
+# Adding labels with percentages and removing names
+pie_chart_gbv <- pie_chart_gbv +
+  geom_text(data = gbv_perc_by_Guarantee, aes(label = scales::percent(Perc / sum(Perc)), x = 1.7), position = position_stack(vjust = 0.5))
+
+
+
+print(pie_chart_gbv)
+
+
+
+ggsave("File/Pie_Chart_gbv.png",plot = pie_chart_gbv)
+
+
+
+
+
+
+
+##### Pie chart for Geographical Distribution of Borrwers BY GBV
+myPalette <- c(  "orange", "yellow","#CFBB8B","#5B491C")
+
+
+
+# Your pie chart code
+pie_chart_gbv_type <- ggplot(data = Gbv_with_Guarantee_type, aes(x = 1, y = Perc, fill = type)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(values = myPalette) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(fill = "Guarantee") +
+  ggtitle("GBV Distribution by Guarantee Presence")
+
+
+
+# Adding labels with percentages and removing names
+pie_chart_gbv_type <- pie_chart_gbv_type +
+  geom_text(data = Gbv_with_Guarantee_type, aes(label = scales::percent(Perc / sum(Perc)), x = 1.7), position = position_stack(vjust = 0.5))
+
+
+
+print(pie_chart_gbv_type)
+
+
+
+ggsave("File/Pie_Chart_gbv_type.png",plot = pie_chart_gbv_type)
 

@@ -94,4 +94,6 @@ insertImage(wb,sheet = "Data Loans","File/Product_Type.png",startCol = 9, startR
 insertImage(wb,sheet = "Data Loans","File/Loan_Size.png",startCol = 9, startRow = 20, width = 4.5, height = 4.5, dpi = 300)
 insertImage(wb,sheet = "Data Loans","File/Loan_Size_Vintage.png",startCol = 9, startRow = 41, width = 4.5, height = 4.5, dpi = 300)
 insertImage(wb,sheet = "Data Loans","File/GBV_Vintage.png",startCol = 9, startRow = 31, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/Pie_Chart_gbv_type.png",startCol = 9, startRow = 51, width = 4.5, height = 4.5, dpi = 300)
+insertImage(wb,sheet = "Data Loans","File/Pie_Chart_gbv.png",startCol = 9, startRow = 61, width = 4.5, height = 4.5, dpi = 300)
 saveWorkbook(wb, file = "File/Teaser.xlsx", overwrite = TRUE)
