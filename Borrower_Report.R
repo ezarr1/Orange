@@ -1,7 +1,7 @@
 Counterparty_Borrowers <-  Counterparties %>% filter(role == "borrower")
 Merged_Counterparty_Loans <-  left_join(Counterparty_Borrowers,Loans, by = "id.bor")
 Average_Borrower_Size <- sum(Merged_Counterparty_Loans$gbv.original)/n_distinct(Merged_Counterparty_Loans$id.bor)
-Average_Borrower_Size <- as.data.frame(Average_gbv_borrowers)
+Average_Borrower_Size <- as.data.frame(Average_Borrower_Size)
 
 
 

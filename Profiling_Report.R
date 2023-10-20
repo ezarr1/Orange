@@ -11,7 +11,8 @@ showGridLines(wb, sheet = 3, showGridLines = FALSE)
 showGridLines(wb, sheet = 4, showGridLines = FALSE)
 showGridLines(wb, sheet = 5, showGridLines = FALSE)
 
-setColWidths(wb, sheet=1,cols = 1:7,widths = "auto")
+mergeCells(wb,sheet=1, rows = 1:6, cols = 1)
+setColWidths(wb, sheet=1,cols = 1:7,widths = "auto",ignoreMergedCells = TRUE)
 setColWidths(wb, sheet=2,cols = 1:7,widths = "auto")
 setColWidths(wb, sheet=3,cols = 1:7,widths = "auto")
 setColWidths(wb, sheet=4,cols = 1:7,widths = "auto")
@@ -20,12 +21,12 @@ setColWidths(wb, sheet=5,cols = 1:7,widths = "auto")
 percentage_rows <- createStyle(numFmt = "0.00%",fontSize = 10,halign = "right",valign = "center",fontColour = "black",wrapText = FALSE)
 
 stringa <- "From the profiling on the Loans table, we see that the primary key is loan.id.\n The total number of loans is 18617, all of these loans have the same status (= bad loan).\n The main type of product is 'conti correnti' e the second is ' mutui fondiari'."
-lines <- unlist(strsplit(stringa, "\n"))
-df <- data.frame(Text = lines)
-for(i in 1:nrow(df)){
-  writeData(wb,1,df$Text[i],1,i)
-}
-
+#lines <- unlist(strsplit(stringa, "\n"))
+#df <- data.frame(Text = lines)
+#for(i in 1:nrow(df)){
+#  writeData(wb,1,df$Text[i],1,i)
+#}
+writeData(wb,1,stringa,1,1)
 writeData(wb, sheet = "Data Profiling Loans", x = "Overview Loans", startCol = 1, startRow = 10)
 writeDataTable(wb, 1, x = Overview_table_Loans_Raw , startRow = 11,
                startCol = 1,  withFilter = FALSE, tableStyle =  "TableStyleMedium2")
