@@ -90,3 +90,7 @@ gbv_by_vintage_plot <- gbv_by_vintage %>%
 gbv_by_vintage_plot
 
 ggsave("File/GBV_Vintage.png",plot = gbv_by_vintage_plot)
+
+
+
+
