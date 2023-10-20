@@ -35,7 +35,7 @@ names(Borrowers_area_table) <- c("Area"," % Borrowers"," % GBV")
 
 
 Borrowers_province_table <- Borrowers_area %>% group_by(province) %>% 
-    summarise(sum_gbv = sum(gbv.original), N_borr = n_distinct(id.counterparty), avg_size = sum_gbv/N_borr ) 
+    summarise(sum_gbv = sum(gbv.original), N_borr = n_distinct(id.counterparty), avg_size = sum_gbv/N_borr ) %>% arrange(desc(sum_gbv))
 # the top 5 are Roma (rm), Teramo(te), Pescara(pe) ,Milano (mi), Genova (ge)
 sum(Borrowers_province_table$sum_gbv)
 Top_5_province_by_gbv <- Borrowers_province_table[1:5, ]
