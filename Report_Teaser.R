@@ -5,15 +5,11 @@ addWorksheet(wb, sheetName = "Data Borrowers")
 
 showGridLines(wb, sheet = 1, showGridLines = FALSE)
 showGridLines(wb, sheet = 2, showGridLines = FALSE)
-showGridLines(wb, sheet = 3, showGridLines = FALSE)
-showGridLines(wb, sheet = 4, showGridLines = FALSE)
-showGridLines(wb, sheet = 5, showGridLines = FALSE)
+
 
 setColWidths(wb, sheet=1,cols = 1:7,widths = "auto")
 setColWidths(wb, sheet=2,cols = 1:7,widths = "auto")
-setColWidths(wb, sheet=3,cols = 1:7,widths = "auto")
-setColWidths(wb, sheet=4,cols = 1:7,widths = "auto")
-setColWidths(wb, sheet=5,cols = 1:7,widths = "auto")
+
 
 percentage_rows <- createStyle(numFmt = "0.00%",fontSize = 10,halign = "right",valign = "center",fontColour = "black",wrapText = FALSE)
 Milion_rows <- createStyle(
