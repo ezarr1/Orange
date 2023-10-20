@@ -35,56 +35,64 @@ print(pie_chart)
 
 ggsave("File/Pie_Chart.png",plot = pie_chart)
 
-Product_Type_Plot <- gbv_sum_type %>% mutate(`Type` = fct_reorder(`Type`,desc(`Sum.GBV`))) %>% 
-  ggplot(aes(x =factor(`Type`) , y = `Sum.GBV`)) +
+#gbv_sum_type$` % GBV` <- gbv_sum_type$` % GBV`/100
+
+Product_Type_Plot <- gbv_sum_type %>% mutate(`Type` = fct_reorder(`Type`,desc(` % GBV`))) %>% 
+  ggplot(aes(x =factor(`Type`) , y = ` % GBV`)) +
   geom_col(fill = "#57c1ef", alpha = 0.6, width = 0.4) +
-  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV` / 1e6),group = `Type`, y = `Sum.GBV` / 2), vjust = 0.5,hjust = "center") +
-  geom_text(aes(label = sprintf("%.1f%%", ` % GBV` * 100)),vjust = -0.8, hjust = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", ` % GBV`),group = `Type`, y = ` % GBV` / 2, vjust = 0.5,hjust = "center")) +
+  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV` / 1e6),vjust = -0.8, hjust = 0.4)) +
   xlab("Type Of Product") +
   theme_bw() +
-  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, big.mark = ","))
+  scale_y_continuous(labels = scales::percent_format(scale = 1,accuracy = 1))
   
 
 Product_Type_Plot
 
 ggsave("File/Product_Type.png",plot = Product_Type_Plot)
 
+#gbv_by_loan_size$` % GBV` <- gbv_by_loan_size$` % GBV`/100
+
 loan_size_plot <- gbv_by_loan_size %>% 
-  ggplot(aes(x =factor(`Range.GBV`) , y = `Sum.GBV`)) +
+  ggplot(aes(x =factor(`Range.GBV`) , y = ` % GBV`)) +
   geom_col(fill = "#57c1ef", alpha = 0.6, width = 0.4) +
-  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV` / 1e6),group = `Range.GBV`, y = `Sum.GBV` / 2), vjust = 0.5,hjust = "center") +
-  geom_text(aes(label = sprintf("%.1f%%", ` % GBV` * 100)),vjust = -0.8, hjust = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", ` % GBV`),group = `Range.GBV`, y = ` % GBV` / 2), vjust = 0.5,hjust = "center") +
+  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV`/1e6 ),vjust = -0.8, hjust = 0.4)) +
   xlab("Range of GBV") +
   theme_bw() +
-  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, big.mark = ","))
+  scale_y_continuous(labels = scales::percent_format(scale = 1, accuracy = 1))
 
 
 loan_size_plot
 
 ggsave("File/Loan_Size.png",plot = loan_size_plot)
 
+#loan_size_by_vintage$` % Loan` <- loan_size_by_vintage$` % Loan`*100
+
 loan_size_vintage_plot <- loan_size_by_vintage %>%  
-  ggplot(aes(x =factor(`Range.Vintage`) , y = `Average.Loan.Size`)) +
+  ggplot(aes(x =factor(`Range.Vintage`) , y = ` % Loan`)) +
   geom_col(fill = "#57c1ef", alpha = 0.6, width = 0.4) +
-  geom_text(aes(label = sprintf("%.1fK", `Average.Loan.Size` / 1000),group = `Range.Vintage`, y = `Average.Loan.Size` / 2), vjust = 0.5,hjust = "center") +
-  geom_text(aes(label = sprintf("%.1f%%", ` % Loan` * 100)),vjust = -0.8, hjust = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", ` % Loan`),group = `Range.Vintage`, y = ` % Loan` / 2), vjust = 0.5,hjust = "center") +
+  geom_text(aes(label = sprintf("%.1fK", `Average.Loan.Size`/1000)),vjust = -0.8, hjust = 0.4) +
   xlab("Years") +
   theme_bw() +
-  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, big.mark = ","))
+  scale_y_continuous(labels = scales::percent_format(scale = 1, accuracy = 1))
 
 
 loan_size_vintage_plot
 
 ggsave("File/Loan_Size_Vintage.png",plot = loan_size_vintage_plot)
 
+#gbv_by_vintage$` % GBV` <- gbv_by_vintage$` % GBV`*100
+
 gbv_by_vintage_plot <- gbv_by_vintage %>% 
-  ggplot(aes(x =factor(`Range.Vintage`) , y = `Sum.GBV`)) +
+  ggplot(aes(x =factor(`Range.Vintage`) , y = ` % GBV`)) +
   geom_col(fill = "#57c1ef", alpha = 0.6, width = 0.4) +
-  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV` / 1e6),group = `Range.Vintage`, y = `Sum.GBV` / 2), vjust = 0.5,hjust = "center") +
-  geom_text(aes(label = sprintf("%.1f%%", ` % GBV` * 100)),vjust = -0.8, hjust = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", ` % GBV`),group = `Range.Vintage`, y = ` % GBV` / 2), vjust = 0.5,hjust = "center") +
+  geom_text(aes(label = sprintf("%.1fM", `Sum.GBV` / 1e6)),vjust = -0.8, hjust = 0.4) +
   xlab("Years") +
   theme_bw() +
-  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, big.mark = ","))
+  scale_y_continuous(labels = scales::percent_format(scale = 1, accuracy = 1))
 
 
 gbv_by_vintage_plot
