@@ -142,3 +142,6 @@ create_area_city <- function(table, key1) {
   }
   return(table)
 }
+
+
+

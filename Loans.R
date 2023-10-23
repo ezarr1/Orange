@@ -25,8 +25,8 @@ Loans <- Loans %>% mutate(id.group = NA,
                               originator = NA,
                               ptf = NA,
                               cluster.ptf = NA,
-                              gbv.residual = NA,
-                              penalties = NA,
+                              gbv.residual = NA_real_,
+                              penalties = NA_real_,
                               date.last.act = NA,
                               flag.imputed = NA)
 Loans <- Loans %>% select(id.loan, id.bor, id.group,originator,ptf,cluster.ptf,
@@ -34,7 +34,7 @@ Loans <- Loans %>% select(id.loan, id.bor, id.group,originator,ptf,cluster.ptf,
                           penalties,expenses,date.origination,date.status,date.last.act,flag.imputed)
 
 Loans <- Loans %>% mutate_at(c("gbv.original","interest","expenses","principal"), as.numeric)
-Loans$expenses <- round(Loans$expenses, 2)
+#Loans$expenses <- round(Loans$expenses, 2)
 
 
 types_table <-  read_excel("File/Product Type Clustering.xlsx", sheet = "Foglio1")

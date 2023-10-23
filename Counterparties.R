@@ -3,6 +3,7 @@
 #sum(!is.na(Borrower_Raw$fiscal.code) & is.na(Borrower_Raw$vat.number)) 2621
 #sum(is.na(Borrower_Raw$fiscal.code) & !is.na(Borrower_Raw$vat.number)) 9237
 
+#explore::explore(distinct(Borrower_Raw))
 
 Borrower_Raw$cf.piva <- ifelse(!is.na(Borrower_Raw$fiscal.code),Borrower_Raw$fiscal.code,Borrower_Raw$vat.number)
 Borrower_Raw <- Borrower_Raw %>% select(-fiscal.code,-vat.number)

@@ -17,7 +17,7 @@ names(Borrower_Raw) <- colname_function(names(Borrower_Raw))
 Borrower_Raw <- Borrower_Raw %>% rename(gbv = 'gbv.(€)')
 Borrower_Raw$birth.date <- excel_numeric_to_date(as.numeric(Borrower_Raw$birth.date))
 
-#check_primary_key(Borrower_Raw,'ndg')
+
 
 #--------------------------------------#
 #------            Loans        ------
@@ -42,9 +42,6 @@ Loans_Raw$date.of.default <- gsub("(?<![0-9])0(?!\\d)", NA, Loans_Raw$date.of.de
 Loans_Raw$date.of.default <- excel_numeric_to_date(as.numeric(Loans_Raw$date.of.default ))
 Loans_Raw$intrum.acquisition.date <- excel_numeric_to_date(as.numeric(Loans_Raw$intrum.acquisition.date))
 
-#check_primary_key(Loans_Raw,'loan.id')
-#r <- (nrow(Loans_Raw)== n_distinct(Loans_Raw$ndg))
-#sum(is.na(Loans_Raw$ndg))  # non ci sono NAs in ndg
 
 #--------------------------------------#
 #------         Co-Owner        ------
@@ -76,8 +73,7 @@ names(Guarantee_Raw) <- colname_function(names(Guarantee_Raw))
 Guarantee_Raw <- Guarantee_Raw %>% rename(guarantor.id = "guarantor.id.no.",
                                           guarantee.id = "guarantee.id.no." ,
                                           loan.id = "loan.id.no.")
-#check_primary_key(Guarantee_Raw,'guarantee.id')  
-# creare link table con id loan e guarantee id e poi distinct ---> guarantee forse pk
+
 
 #--------------------------------------#
 #------        Guarantor        ------
@@ -93,7 +89,7 @@ Guarantor_Raw[] <- lapply(Guarantor_Raw,tolower)
 
 names(Guarantor_Raw) <- colname_function(names(Guarantor_Raw))
 Guarantor_Raw <- Guarantor_Raw %>% rename(guarantor.id = "guarantor.id.no.")
-check_primary_key(Guarantor_Raw,'guarantor.id')  
+ 
 
 
 #--------------------------------------#
