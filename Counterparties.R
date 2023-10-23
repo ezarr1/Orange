@@ -40,7 +40,7 @@ Counterparties <- Counterparties %>% mutate(id.group = NA, name=NA,flag.imputed=
                                             n.entities = str_count(Counterparties_Raw$cf.piva,",")+1)
 
 
-matrice <- Counterparties_Raw %>% filter(is.na(cf.piva))
+#matrice <- Counterparties_Raw %>% filter(is.na(cf.piva))
 
 
 
